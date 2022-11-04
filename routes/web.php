@@ -30,10 +30,10 @@ Route::get('about',[AboutController::class, 'index'])->name('about');
 Route::get( 'items',[ItemController::class, 'index'])->name('items');
 
 // User
-Route::get('user',[RegisteredUserController::class, 'index']);
-Route::get('userRegistration',[RegisteredUserController::class, 'create']);
+Route::get('user',[RegisteredUserController::class, 'index'])->name('user');
+Route::get('userRegistration',[RegisteredUserController::class, 'create'])->name('userRegistration');
 Route::post('userStore',[RegisteredUserController::class, 'store']);
-Route::get('userView',[RegisteredUserController::class, 'show']);
+Route::get('userView',[RegisteredUserController::class, 'show'])->name('userView');
 
 // Koleksi
 Route::get('koleksi',[CollectionController::class, 'index']);
