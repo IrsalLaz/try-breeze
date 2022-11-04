@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 
 Route::get('about',[AboutController::class, 'index'])->name('about');
 
-Route::get('items',[ItemController::class, 'index'])->name('items');
+Route::get( 'items',[ItemController::class, 'index'])->name('items');
 
 // User
 Route::get('user',[RegisteredUserController::class, 'index']);
