@@ -25,20 +25,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('about',[AboutController::class, 'index'])->name('about');
+Route::get('about', [AboutController::class, 'index'])->name('about');
 
-Route::get( 'items',[ItemController::class, 'index'])->name('items');
+Route::get('items', [ItemController::class, 'index'])->name('items');
 
 // User
-Route::get('user',[RegisteredUserController::class, 'index'])->name('user');
-Route::get('userRegistration',[RegisteredUserController::class, 'create'])->name('userRegistration');
-Route::post('userStore',[RegisteredUserController::class, 'store']);
-Route::get('userView',[RegisteredUserController::class, 'show'])->name('userView');
+Route::get('user', [RegisteredUserController::class, 'index'])->name('user');
+Route::get('userRegistration', [RegisteredUserController::class, 'create'])->name('userRegistration');
+Route::post('userStore', [RegisteredUserController::class, 'store']);
+Route::get('userView', [RegisteredUserController::class, 'show'])->name('userView');
 
 // Koleksi
-Route::get('koleksi',[CollectionController::class, 'index']);
-Route::get('koleksiTambah',[CollectionController::class, 'create']);
-Route::post('koleksiStore',[CollectionController::class, 'store']);
-Route::get('koleksiView',[CollectionController::class, 'show']);
+Route::get('koleksi', [CollectionController::class, 'index'])->name('koleksi');
+Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah');
+Route::post('koleksiStore', [CollectionController::class, 'store']);
+Route::get('koleksiView', [CollectionController::class, 'show'])->name('koleksiView');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

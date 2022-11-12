@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\collections;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -38,17 +39,25 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'username' => ['required', 'string', 'max:100'],
-            'fullname' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'address'=> ['required', 'string', 'max:1000'],
-            'birthdate' => ['required', 'date'],
-            'phoneNumber' => ['required', 'string', 'max:20'],
-            'religion' => ['required', 'string', 'max:20'],
-            'gender' => ['integer'],
-        ]);
+        $request->validate(
+            [
+                'username' => ['required', 'string', 'max:100'],
+                'fullname' => ['required', 'string', 'max:100'],
+                'email' => ['required', 'string', 'email', 'max:255'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'address' => ['required', 'string', 'max:1000'],
+                'birthdate' => ['required', 'date', 'before:today'],
+                'phoneNumber' => ['required', 'string', 'max:20'],
+                'religion' => ['required', 'string', 'max:20'],
+                'gender' => ['integer'],
+            ],
+            [
+                'username.required' => 'Username harus diisi',
+                'username.unique' => 'Username telah digunakan',
+                'birthdate.before' => 'Tanggal lahir harus sebelum hari ini'
+
+            ]
+        );
 
         $user = User::create([
             'username' => $request->username,
@@ -64,13 +73,12 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
     public function show(collections $collections)
     {
         return view('user.daftarPengguna');
-        
     }
 }
