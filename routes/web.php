@@ -36,9 +36,9 @@ Route::post('userStore', [RegisteredUserController::class, 'store']);
 Route::get('userView', [RegisteredUserController::class, 'show'])->name('userView');
 
 // Koleksi
-Route::get('koleksi', [CollectionController::class, 'index'])->name('koleksi');
-Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah');
-Route::post('koleksiStore', [CollectionController::class, 'store']);
-Route::get('koleksiView', [CollectionController::class, 'show'])->name('koleksiView');
+Route::get('koleksi', [CollectionController::class, 'index'])->name('koleksi')->middleware(['auth', 'verified']);
+Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah')->middleware(['auth', 'verified']);
+Route::post('koleksiStore', [CollectionController::class, 'store'])->name('koleksiStore')->middleware(['auth', 'verified']);
+Route::get('koleksiView', [CollectionController::class, 'show'])->name('koleksiView')->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';

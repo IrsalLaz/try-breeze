@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('namaKoleksi', 100);
             $table->tinyInteger('jenisKoleksi');
-            $table->date('createdAt');
             $table->integer('jumlahKoleksi');
+            $table->date('createdAt');
         });
     }
 
