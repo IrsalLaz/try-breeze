@@ -37,6 +37,8 @@ Route::get('userView', [RegisteredUserController::class, 'show'])->name('userVie
 
 // Koleksi
 Route::get('koleksi', [CollectionController::class, 'index'])->name('koleksi')->middleware(['auth', 'verified']);
+// Route::get('koleksi/list', [CollectionController::class, 'getAll'])->name('koleksi.list')->middleware(['auth', 'verified']);
+
 Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah')->middleware(['auth', 'verified']);
 Route::post('koleksiStore', [CollectionController::class, 'store'])->name('koleksiStore')->middleware(['auth', 'verified']);
 Route::get('koleksiView', [CollectionController::class, 'show'])->name('koleksiView')->middleware(['auth', 'verified']);

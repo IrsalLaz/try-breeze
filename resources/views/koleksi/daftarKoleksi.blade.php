@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 raw form-inline">
-                    <table class=" table table-striped table-hover" id="datatable">
+                    <table class=" table table-striped table-hover" id="datatable" name="datatable">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -37,9 +37,9 @@
 
     <script type="text/javascript">
         $(function() {
-            $('#datatable').DataTable({
+            var table = $('#datatable').DataTable({
                 ajax: '{{ url('koleksi') }}',
-                serverSide: false,
+                serverSide: true,
                 processing: true,
                 deferRender: true,
                 type: 'GET',
