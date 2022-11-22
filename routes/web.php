@@ -36,11 +36,18 @@ Route::post('userStore', [RegisteredUserController::class, 'store']);
 Route::get('userView', [RegisteredUserController::class, 'show'])->name('userView');
 
 // Koleksi
-Route::get('koleksi', [CollectionController::class, 'index'])->name('koleksi')->middleware(['auth', 'verified']);
+Route::get('koleksi', [CollectionController::class, 'index'])->middleware(['auth', 'verified'])->name('koleksi');
+
 // Route::get('koleksi/list', [CollectionController::class, 'getAll'])->name('koleksi.list')->middleware(['auth', 'verified']);
 
-Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah')->middleware(['auth', 'verified']);
-Route::post('koleksiStore', [CollectionController::class, 'store'])->name('koleksiStore')->middleware(['auth', 'verified']);
-Route::get('koleksiView', [CollectionController::class, 'show'])->name('koleksiView')->middleware(['auth', 'verified']);
+// Route::get('koleksi', [
+//     'uses' => 'CollectionController@index',
+//     'as' => 'koleksi-list'
+// ]);
+
+Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah');
+
+Route::post('koleksiStore', [CollectionController::class, 'store'])->middleware(['auth', 'verified'])->name('koleksiStore');
+Route::get('koleksiView', [CollectionController::class, 'show'])->middleware(['auth', 'verified'])->name('koleksiView');
 
 require __DIR__ . '/auth.php';

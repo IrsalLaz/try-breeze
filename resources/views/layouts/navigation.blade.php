@@ -27,7 +27,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    <x-nav-link :href="route('userRegistration')" :active="request()->routeIs('userRegistration')">
                         {{ __('Register') }}
                     </x-nav-link>
                 </div>
@@ -52,7 +52,7 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('koleksi')">
+                            <x-dropdown-link n-link :href="route('koleksi')">
                                 Daftar Koleksi
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('koleksiTambah')">

@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collection;
-use App\Models\collections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
-// use DataTables;
 
-// use App\Http\Controllers\DB;
+// use DataTables;
 
 class CollectionController extends Controller
 {
@@ -19,56 +16,39 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         // dd($request);
-        // if ($request->ajax()) {
-        //     $collections = DB::table('collections')
-        //         ->select(
-        //             'id as id',
-        //             'namaKoleksi as namaKoleksi',
-        //             DB::raw('
-        //                 (CASE
-        //                 WHEN jenisKoleksi="1" THEN "Buku"
-        //                 WHEN jenisKoleksi="2" THEN "Majalah"
-        //                 WHEN jenisKoleksi="3" THEN "Cakram Digital"
-        //                 END) AS jenis
-        //             '),
-        //             'jumlahKoleksi as jumlahKoleksi'
-        //         )
-        //         ->orderBy('namaKoleksi', 'asc')
-        //         ->get();
-
-        //     return DataTables::of($collections)
-        //         ->addColumn('action', function ($collection) {
-        //             $html = '
-        //     <button data-rowid="" class=" btn btn-xs btn-light" data-toggle="tooltip" data-placement="top" data-container="body" title="Edit Koleksi" onclick="infoKoleksi(' . "'" . $collection->id . "'" . ')">
-        //     <i class="fa fa-edit>></i>
-        //     ';
-        //             return $html;
-        //         })
-        //         ->make(true);
-        // }
+        if ($request->ajax()) {
+            $collections = DB::table('collections')
+                ->select(
+                    'id as id',
+                    'namaKoleksi as namaKoleksi',
+                    'jumlahKoleksi as jumlahKoleksi'
+                )->get();
+            return Datatables::of($collections)->make(true);
+        }
         return view('koleksi.daftarKoleksi');
     }
 
-    public function getKoleksi(Request $request)
-    {
-        if ($request->ajax()) {
-            $data = Collection::latest()->get();
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($collection) {
-                    $actionBtn = '
-                    <button data-rowid="" class=" btn btn-xs btn-light" data-toggle="tooltip" data-placement="top" data-container="body" title="Edit Koleksi" onclick="infoKoleksi(' . "'" . $collection->id . "'" . ')">
-                    <i class="fa fa-edit>></i>
-                    ';
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-    }
+    // public function getKoleksi(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $data = Collection::latest()->get();
+    //         return Datatables::of($data)
+    //             ->addIndexColumn()
+    //             ->addColumn('action', function ($collection) {
+    //                 $actionBtn = '
+    //                 <button data-rowid="" class=" btn btn-xs btn-light" data-toggle="tooltip" data-placement="top" data-container="body" title="Edit Koleksi" onclick="infoKoleksi(' . "'" . $collection->id . "'" . ')">
+    //                 <i class="fa fa-edit>></i>
+    //                 ';
+    //                 return $actionBtn;
+    //             })
+    //             ->rawColumns(['action'])
+    //             ->make(true);
+    //     }
+    // }
 
 
     /**
@@ -78,7 +58,6 @@ class CollectionController extends Controller
      */
     public function create()
     {
-
         return view('koleksi.registrasi');
     }
 
@@ -108,7 +87,7 @@ class CollectionController extends Controller
      * @param  \App\Models\collections  $collections
      * @return \Illuminate\Http\Response
      */
-    public function show(collections $collections)
+    public function show()
     {
         return view('koleksi.infoKoleksi');
     }
@@ -119,7 +98,7 @@ class CollectionController extends Controller
      * @param  \App\Models\collections  $collections
      * @return \Illuminate\Http\Response
      */
-    public function edit(collections $collections)
+    public function edit()
     {
         //
     }
@@ -131,7 +110,7 @@ class CollectionController extends Controller
      * @param  \App\Models\collections  $collections
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, collections $collections)
+    public function update(Request $request)
     {
         //
     }
@@ -142,7 +121,7 @@ class CollectionController extends Controller
      * @param  \App\Models\collections  $collections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(collections $collections)
+    public function destroy()
     {
         //
     }
