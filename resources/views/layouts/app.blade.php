@@ -19,7 +19,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- child css link -->
-    @yield('header')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css" />
+
+    @stack('header')
+
 
 </head>
 

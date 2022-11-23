@@ -37,17 +37,11 @@ Route::get('userView', [RegisteredUserController::class, 'show'])->name('userVie
 
 // Koleksi
 Route::get('koleksi', [CollectionController::class, 'index'])->middleware(['auth', 'verified'])->name('koleksi');
-
-// Route::get('koleksi/list', [CollectionController::class, 'getAll'])->name('koleksi.list')->middleware(['auth', 'verified']);
-
-// Route::get('koleksi', [
-//     'uses' => 'CollectionController@index',
-//     'as' => 'koleksi-list'
-// ]);
-
 Route::get('koleksiTambah', [CollectionController::class, 'create'])->name('koleksiTambah');
-
 Route::post('koleksiStore', [CollectionController::class, 'store'])->middleware(['auth', 'verified'])->name('koleksiStore');
-Route::get('koleksiView', [CollectionController::class, 'show'])->middleware(['auth', 'verified'])->name('koleksiView');
+
+Route::get('koleksiView/{collection}', [CollectionController::class, 'show'])->middleware(['auth', 'verified'])->name('koleksiView');
+Route::post('koleksiUpdate/{id}', [CollectionController::class, 'update'])->middleware(['auth', 'verified'])->name('koleksiUpdate');
+Route::post('koleksiEdit', [CollectionController::class, 'edit'])->middleware(['auth', 'verified'])->name('koleksiEdit');
 
 require __DIR__ . '/auth.php';

@@ -53,7 +53,7 @@
                         <button type="submit" name="ButtonSubmit" id="ButtonSubmit"
                             class="btn btn-outline-primary mt-4">Submit</button>
 
-                        <button type="reset" name="ButtonReset" id="ButtonReset" class="btn btn-outline-primary mt-4">
+                        <button type="reset" name="ButtonReset" id="ButtonReset" class="btn btn-outline-danger mt-4">
                             Reset</button>
 
                     </form>

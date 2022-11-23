@@ -15,8 +15,18 @@
                             name: 'namaKoleksi'
                         },
                         {
+                            data: 'jenis',
+                            name: 'jenis'
+                        },
+                        {
                             data: 'jumlahKoleksi',
                             name: 'jumlahKoleksi'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
                         },
                     ]
                 });
@@ -35,12 +45,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 raw form-inline">
-                    <table class=" table table-stripped mt-4" id="myTable">
+                    <table class=" table table-stripped table-hover  mt-4" id="myTable">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Judul</th>
+                                <th>Jenis</th>
                                 <th>Jumlah</th>
+                                <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,11 +64,3 @@
     </div>
 
 </x-app-layout>
-
-
-{{-- @foreach ($collections as $collection)
-    <td>{{ $collection->id }}</td>
-    <td>{{ $collection->namaKoleksi }}</td>
-    <td>{{ $collection->jenisKoleksi }}</td>
-    <td>{{ $collection->jumlahKoleksi }}</td>
-@endforeach --}}

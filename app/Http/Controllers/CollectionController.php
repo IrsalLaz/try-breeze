@@ -25,12 +25,40 @@ class CollectionController extends Controller
                 ->select(
                     'id as id',
                     'namaKoleksi as namaKoleksi',
-                    'jumlahKoleksi as jumlahKoleksi'
+                    DB::raw('
+                    (CASE
+                    WHEN jenisKoleksi="1" THEN "Buku"
+                    WHEN jenisKoleksi="2" THEN "Majalah"
+                    WHEN jenisKoleksi="3" THEN "Cakram Digital"
+                    END) AS jenis
+                    '),
+                    'jumlahKoleksi as jumlahKoleksi',
                 )->get();
-            return Datatables::of($collections)->make(true);
+            return Datatables::of($collections)
+                ->addColumn(
+                    'action',
+                    function ($collections) {
+                        $html =
+                            '<a href="/koleksiView/' . $collections->id . '">Edit</a>';
+                        return $html;
+                    }
+                )
+                ->make(true);
         }
         return view('koleksi.daftarKoleksi');
     }
+
+    // worked
+    // ->addColumn('action', '<a href="koleksiView">Edit</a>')
+
+    // ->addCollumn('action', '<a href="edit">Edit</a>')
+    // ->addCollumn('action', function ($collection) {
+    //     $html =
+    //         '<button class="btn btn-light" data-toggle="tooltip" data-placement="top" data-container="body" title="Edit koleksi" onclick="infoKoleksi(' . "'" . $collection . "'" . ')">
+    //             <i class="bi bi-pen">edit</i>
+    //         </button>';
+    //     return $html;
+    // })
 
     // public function getKoleksi(Request $request)
     // {
@@ -87,9 +115,12 @@ class CollectionController extends Controller
      * @param  \App\Models\collections  $collections
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Collection $collection)
     {
-        return view('koleksi.infoKoleksi');
+        // $collections = DB::select('select * from collections');
+        // return view('koleksi.infoKoleksi', ['collections' => $collections]);
+
+        return view('koleksi.infoKoleksi', compact('collection'));
     }
 
     /**
@@ -110,9 +141,17 @@ class CollectionController extends Controller
      * @param  \App\Models\collections  $collections
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        $validated = $request->validate([
+            'jenisKoleksi' => ['required', 'integer'],
+            'jumlahKoleksi' => ['re quired', 'integer']
+        ]);
+
+        Collection::find($id)->update($validated);
+
+        return redirect('/koleksi');
     }
 
     /**

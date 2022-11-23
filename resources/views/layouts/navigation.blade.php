@@ -16,11 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
-                        {{ __('About') }}
-                    </x-nav-link>
-                </div> --}}
+
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('items')" :active="request()->routeIs('items')">
                         {{ __('Items') }}
@@ -57,9 +53,6 @@
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('koleksiTambah')">
                                 Tambah Koleksi
-                            </x-dropdown-link>
-                            <x-dropdown-link :href="route('koleksiView')">
-                                Info Koleksi
                             </x-dropdown-link>
                         </x-slot>
 
