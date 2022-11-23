@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class RegisteredUserController extends Controller
 {
@@ -19,14 +21,44 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $users = DB::table('users')
+                ->select(
+                    'id as id',
+                    'fullname as fullname',
+                    'username as username',
+                    'address as address',
+                    'phoneNumber as phoneNumber',
+                    'birthdate as birthdate',
+                    'religion as religion',
+                    DB::raw('
+                    (CASE
+                    WHEN gender="1" THEN "Laki-laki"
+                    WHEN gender="2" THEN "Perempuan"
+                    END) AS gender
+                    '),
+                )->get();
+
+            return Datatables::of($users)
+                ->addColumn(
+                    'action',
+                    '<a href="">Edit</a>'
+                )
+                ->make(true);
+        }
         return view('user.daftarPengguna');
     }
 
     public function create()
     {
         return view('auth.register');
+    }
+
+    public function addUser()
+    {
+        return view('user.registrasi');
     }
 
     /**

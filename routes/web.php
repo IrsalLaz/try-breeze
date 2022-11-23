@@ -5,6 +5,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,14 +27,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('about', [AboutController::class, 'index'])->name('about');
-
 Route::get('items', [ItemController::class, 'index'])->name('items');
 
 // User
 Route::get('user', [RegisteredUserController::class, 'index'])->name('user');
+
 Route::get('userRegistration', [RegisteredUserController::class, 'create'])->name('userRegistration');
+Route::get('addUser', [RegisteredUserController::class, 'addUser'])->name('addUser');
 Route::post('userStore', [RegisteredUserController::class, 'store']);
-Route::get('userView', [RegisteredUserController::class, 'show'])->name('userView');
+Route::get('userView/{user}', [RegisteredUserController::class, 'show'])->name('userView');
 
 // Koleksi
 Route::get('koleksi', [CollectionController::class, 'index'])->middleware(['auth', 'verified'])->name('koleksi');

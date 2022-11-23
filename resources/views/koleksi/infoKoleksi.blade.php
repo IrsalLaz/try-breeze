@@ -13,13 +13,13 @@
                         @csrf
                         <div class="mt-4">
                             <x-input-label for="idKoleksi" :value="__('ID Koleksi')" />
-                            <input type="text" id="id" name="id" class="form-control" autocomplete="off"
-                                value="{{ $collection->id }}" readonly>
+                            <x-text-input type="text" id="id" name="id" class="form-control"
+                                autocomplete="off" value="{{ $collection->id }}" readonly />
                         </div>
                         <div class="mt-4">
                             <x-input-label for="namaKoleksi" :value="__('Judul Koleksi')" />
-                            <input type="text" id="id" name="id" class="form-control" autocomplete="off"
-                                value="{{ $collection->namaKoleksi }}" readonly>
+                            <x-text-input type="text" id="id" name="id" class="form-control"
+                                autocomplete="off" value="{{ $collection->namaKoleksi }}" readonly />
                         </div>
                         <div class="mt-4">
                             <x-input-label for="jenisKoleksi" :value="__('Jenis Koleksi')" />
@@ -40,8 +40,8 @@
                         </div>
                         <div class="mt-4">
                             <x-input-label for="jumlahKoleksi" :value="__('Jumlah Koleksi')" />
-                            <input type="text" id="jumlahKoleksi" name="jumlahKoleksi" class="form-control"
-                                autocomplete="off" value="{{ $collection->jumlahKoleksi }}">
+                            <x-text-input type="text" id="jumlahKoleksi" name="jumlahKoleksi" class="form-control"
+                                autocomplete="off" value="{{ $collection->jumlahKoleksi }}" />
                         </div>
 
                         <div class="mt-4">

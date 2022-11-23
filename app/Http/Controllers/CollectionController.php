@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-// use DataTables;
-
 class CollectionController extends Controller
 {
     /**
@@ -117,9 +115,6 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        // $collections = DB::select('select * from collections');
-        // return view('koleksi.infoKoleksi', ['collections' => $collections]);
-
         return view('koleksi.infoKoleksi', compact('collection'));
     }
 

@@ -22,11 +22,6 @@
                         {{ __('Items') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('userRegistration')" :active="request()->routeIs('userRegistration')">
-                        {{ __('Register') }}
-                    </x-nav-link>
-                </div>
 
                 {{-- Dropdown Koleksi --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex my-4">
@@ -81,10 +76,8 @@
                         <x-slot name="content">
                             <x-dropdown-link :href="route('user')">
                                 Daftar user</x-dropdown-link>
-                            <x-dropdown-link :href="route('userRegistration')">
+                            <x-dropdown-link :href="route('addUser')">
                                 Tambah user</x-dropdown-link>
-                            <x-dropdown-link :href="route('userView')">
-                                Info user</x-dropdown-link>
                         </x-slot>
 
                     </x-dropdown>
