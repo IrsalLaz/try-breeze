@@ -36,6 +36,7 @@ Route::get('userRegistration', [RegisteredUserController::class, 'create'])->nam
 Route::get('addUser', [RegisteredUserController::class, 'addUser'])->name('addUser');
 Route::post('userStore', [RegisteredUserController::class, 'store']);
 Route::get('userView/{user}', [RegisteredUserController::class, 'show'])->name('userView');
+Route::post('userUpdate/{id}', [RegisteredUserController::class, 'update'])->name('userUpdate');
 
 // Koleksi
 Route::get('koleksi', [CollectionController::class, 'index'])->middleware(['auth', 'verified'])->name('koleksi');

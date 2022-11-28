@@ -44,7 +44,11 @@ class RegisteredUserController extends Controller
             return Datatables::of($users)
                 ->addColumn(
                     'action',
-                    '<a href="">Edit</a>'
+                    function ($user) {
+                        $html =
+                            '<a href="/userView/' . $user->id . '">Edit</a>';
+                        return $html;
+                    }
                 )
                 ->make(true);
         }
@@ -109,8 +113,21 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
-    public function show(collections $collections)
+
+    public function show(User $user)
     {
-        return view('user.daftarPengguna');
+        return view('user.infoPengguna', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'fullname' => ['required', 'string', 'max:100'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'address' => ['required', 'string', 'max:1000'],
+            'phoneNumber' => ['required', 'string', 'max:20'],
+        ]);
+        User::find($id)->update($validated);
+        return redirect('/user');
     }
 }
