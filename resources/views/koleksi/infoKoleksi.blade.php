@@ -18,7 +18,7 @@
                         </div>
                         <div class="mt-4">
                             <x-input-label for="namaKoleksi" :value="__('Judul Koleksi')" />
-                            <x-text-input type="text" id="id" name="id" class="form-control"
+                            <x-text-input type="text" id="id" name="namaKoleksi" class="form-control"
                                 autocomplete="off" value="{{ $collection->namaKoleksi }}" readonly />
                         </div>
                         <div class="mt-4">

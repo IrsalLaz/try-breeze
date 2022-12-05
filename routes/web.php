@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\CollectionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\DetailTransactionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +48,20 @@ Route::post('koleksiStore', [CollectionController::class, 'store'])->middleware(
 Route::get('koleksiView/{collection}', [CollectionController::class, 'show'])->middleware(['auth', 'verified'])->name('koleksiView');
 Route::post('koleksiUpdate/{id}', [CollectionController::class, 'update'])->middleware(['auth', 'verified'])->name('koleksiUpdate');
 Route::post('koleksiEdit', [CollectionController::class, 'edit'])->middleware(['auth', 'verified'])->name('koleksiEdit');
+
+// Transaksi
+Route::get('transaksi', [TransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('transaksi');
+Route::get('transaksiTambah', [TransactionController::class, 'create'])->name('transaksiTambah');
+Route::post('transaksiStore', [TransactionController::class, 'store'])->middleware(['auth', 'verified'])->name('transaksiStore');
+Route::get('transaksiView/{transaction}', [TransactionController::class, 'show'])->middleware(['auth', 'verified'])->name('transaksiView');
+
+// Detail transaksi
+Route::get('detailTransactionKembalikan/{detailTransactionId}', [DetailTransactionController::class, 'detailTransactionKembalikan'])->middleware(['auth', 'verified'])->name('detailTransactionUpdate');
+Route::post('detailTransactionUpdate', [DetailTransactionController::class, 'update'])->middleware(['auth', 'verified'])->name('detailTransactionUpdate');
+
+// Ambil
+Route::get('getAllTransactions', [TransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('getAllCollections');
+
+Route::get('getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'getAllDetailTransactions'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
 
 require __DIR__ . '/auth.php';

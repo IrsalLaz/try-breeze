@@ -30,7 +30,7 @@ class CollectionController extends Controller
                     WHEN jenisKoleksi="3" THEN "Cakram Digital"
                     END) AS jenis
                     '),
-                    'jumlahKoleksi as jumlahKoleksi',
+                    'jumlahSisa as jumlahSisa',
                 )->get();
             return Datatables::of($collections)
                 ->addColumn(
@@ -100,7 +100,7 @@ class CollectionController extends Controller
             [
                 'namaKoleksi' => ['required', 'string', 'max:100'],
                 'jenisKoleksi' => ['required', 'integer'],
-                'jumlahKoleksi' => ['required', 'integer']
+                'jumlahSisa' => ['required', 'integer']
             ]
         );
         Collection::create($validated);
@@ -141,7 +141,7 @@ class CollectionController extends Controller
         // dd($request);
         $validated = $request->validate([
             'jenisKoleksi' => ['required', 'integer'],
-            'jumlahKoleksi' => ['re quired', 'integer']
+            'jumlahSisa' => ['required', 'integer']
         ]);
 
         Collection::find($id)->update($validated);
