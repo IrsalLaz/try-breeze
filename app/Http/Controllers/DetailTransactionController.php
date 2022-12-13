@@ -16,44 +16,43 @@ class DetailTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $detailTransactionId)
+    public function index(Request $request, $transactionId)
     {
-        // return view('detailTransaction.detailTransactionKembalikan', compact('detailTransaction'));
+        return view('detailTransaction.detailTransactionKembalikan', compact('detail_transactions'));
     }
-    public function getAllDetailTransactions(Request $request, $transactionId)
+
+    public function getAllDetailTransactions($transactionId)
     {
-        if ($request->ajax()) {
-            $detail_transactions = DB::table('detail_transactions as dt')
-                ->select(
-                    'dt.id as id',
-                    'dt.tanggalKembali as tanggalKembali',
-                    't.tanggalPinjam as tanggalPinjam',
-                    DB::raw('
+        $detail_transactions = DB::table('detail_transactions as dt')
+            ->select(
+                'dt.id as id',
+                'c.namaKoleksi as koleksi',
+                't.tanggalPinjam as tanggalPinjam',
+                'dt.tanggalKembali as tanggalKembali',
+                DB::raw('
                 (CASE
                 WHEN dt.status="1" THEN "Pinjam"
                 WHEN dt.status="2" THEN "Kembali"
                 WHEN dt.status="3" THEN "Hilang"
-                END) AS status
+                END) as status
                 '),
-                    'c.namaKoleksi as koleksi',
-                )
-                ->join('collections as c', 'c.id', '=', 'dt.collectionId')
-                ->join('transactions as t', 't.id', '=', 'dt.transactionId')
-                ->where('dt.transactionId', '=', $transactionId)
-                ->get();
+                'dt.status as statusType',
+            )
+            ->join('collections as c', 'c.id', '=', 'dt.collectionId')
+            ->join('transactions as t', 't.id', '=', 'dt.transactionId')
+            ->where('transactionId', '=', $transactionId)->get();
 
-            return DataTables::of($detail_transactions)
-                ->addCollumn('action', function ($detail_transaction) {
-                    $html = '';
-                    if ($detail_transaction->statusType == "1") {
-                        $html =
-                            '<a href="/detailTransactionKembalikan/' . $detail_transaction->id . '">Edit</a>';;
-                    }
+        return DataTables::of($detail_transactions)
+            ->addColumn(
+                'action',
+                function ($detail_transaction) {
+                    $html =
+                        '<a href="/detailTransactionKembalikan/' . $detail_transaction->id . '">Edit</a>';
+
                     return $html;
-                })
-                ->make(true);
-        }
-        return view('detailTransaction.detailTransactionKembalikan', compact('detailTransaction'));
+                }
+            )
+            ->make(true);
     }
 
     public function detailTransactionKembalikan($detailTransactionId)

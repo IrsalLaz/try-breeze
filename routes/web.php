@@ -63,5 +63,6 @@ Route::post('detailTransactionUpdate', [DetailTransactionController::class, 'upd
 Route::get('getAllTransactions', [TransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('getAllCollections');
 
 Route::get('getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'getAllDetailTransactions'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
+// Route::get('getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
 
 require __DIR__ . '/auth.php';

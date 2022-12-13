@@ -149,14 +149,15 @@ class TransactionController extends Controller
         $transactions = DB::table('transactions as t')
             ->select(
                 't.id as id',
-                'u1.fullname as peminjam',
-                'u2.fullname as petugas',
+                'u1.fullname as fullnamePeminjam',
+                'u2.fullname as fullnamePetugas',
                 't.tanggalPinjam as tanggalPinjam',
                 't.tanggalSelesai as tanggalSelesai',
             )
             ->join('users as u1', 't.userIdPeminjam', '=', 'u1.id')
             ->join('users as u2', 't.userIdPetugas', '=', 'u2.id')
             ->orderBy('tanggalPinjam', 'asc')
+            ->where('t.id', '=', $transaction->id)
             ->first();
         return view('transaction.transaksiView', compact('transactions'));
     }

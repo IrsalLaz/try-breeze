@@ -1,12 +1,12 @@
 <x-app-layout>
     @push('scripts')
-        <script type="text/javascript">
+        <script>
             $(function() {
                 $('#viewTable').DataTable({
-                    ajax: '{{ url('getAllDetailTransactions', '$transactions->id') }}',
-                    serverSide: true,
                     processing: true,
-                    columns: [{
+                    serverSide: true,
+                    ajax: '{{ url('getAllDetailTransactions', $transactions->id) }}',
+                    collumns: [{
                             data: 'id',
                             name: 'id'
                         },
@@ -26,10 +26,6 @@
                             data: 'status',
                             name: 'status'
                         },
-                        {
-                            data: 'action',
-                            name: 'action',
-                        },
                     ]
                 });
             });
@@ -48,25 +44,24 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="mt-4">
                         <x-input-label> Peminjam </x-input-label>
-                        <x-text-input type="text" id="peminjam" name="peminjam" value="{{ $transactions->peminjam }}"
-                            readonly />
+                        <x-text-input type="text" id="peminjam" name="peminjam"
+                            value="{{ $transactions->fullnamePeminjam }}" readonly />
                     </div>
 
                     <div class="mt-4 mb-4">
                         <x-input-label> Petugas </x-input-label>
-                        <x-text-input type="text" id="petugas" name="petugas" value="{{ $transactions->petugas }}"
-                            readonly />
+                        <x-text-input type="text" id="petugas" name="petugas"
+                            value="{{ $transactions->fullnamePetugas }}" readonly />
                     </div>
 
                     <table class=" table table-stripped table-hover mt-4" id="viewTable">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th>ID</th>
                                 <th>Koleksi</th>
                                 <th>Tanggal Pinjam</th>
-                                <th>Tanggal Selesai</th>
+                                <th>Tanggal Kembali</th>
                                 <th>Status</th>
-                                <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>

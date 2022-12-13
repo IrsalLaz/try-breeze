@@ -46,36 +46,11 @@ class CollectionController extends Controller
         return view('koleksi.daftarKoleksi');
     }
 
-    // worked
-    // ->addColumn('action', '<a href="koleksiView">Edit</a>')
-
-    // ->addCollumn('action', '<a href="edit">Edit</a>')
-    // ->addCollumn('action', function ($collection) {
-    //     $html =
-    //         '<button class="btn btn-light" data-toggle="tooltip" data-placement="top" data-container="body" title="Edit koleksi" onclick="infoKoleksi(' . "'" . $collection . "'" . ')">
-    //             <i class="bi bi-pen">edit</i>
-    //         </button>';
-    //     return $html;
-    // })
-
-    // public function getKoleksi(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $data = Collection::latest()->get();
-    //         return Datatables::of($data)
-    //             ->addIndexColumn()
-    //             ->addColumn('action', function ($collection) {
-    //                 $actionBtn = '
-    //                 <button data-rowid="" class=" btn btn-xs btn-light" data-toggle="tooltip" data-placement="top" data-container="body" title="Edit Koleksi" onclick="infoKoleksi(' . "'" . $collection->id . "'" . ')">
-    //                 <i class="fa fa-edit>></i>
-    //                 ';
-    //                 return $actionBtn;
-    //             })
-    //             ->rawColumns(['action'])
-    //             ->make(true);
-    //     }
-    // }
-
+    public function getCollectionsAPI()
+    {
+        $collections = Collection::all();
+        return response()->json($collections, 200);
+    }
 
     /**
      * Show the form for creating a new resource.
