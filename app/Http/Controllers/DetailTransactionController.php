@@ -18,6 +18,39 @@ class DetailTransactionController extends Controller
      */
     public function index(Request $request, $transactionId)
     {
+        if ($request->ajax()) {
+            $detail_transactions = DB::table('detail_transactions as dt')
+                ->select(
+                    'dt.id as id',
+                    'c.namaKoleksi as koleksi',
+                    't.tanggalPinjam as tanggalPinjam',
+                    'dt.tanggalKembali as tanggalKembali',
+                    DB::raw('
+                (CASE
+                WHEN dt.status="1" THEN "Pinjam"
+                WHEN dt.status="2" THEN "Kembali"
+                WHEN dt.status="3" THEN "Hilang"
+                END) as status
+                '),
+                    'dt.status as statusType',
+                )
+                ->join('collections as c', 'c.id', '=', 'dt.collectionId')
+                ->join('transactions as t', 't.id', '=', 'dt.transactionId')
+                ->where('transactionId', '=', $transactionId)->get();
+
+            return DataTables::of($detail_transactions)
+                ->addColumn(
+                    'action',
+                    function ($detail_transaction) {
+                        $html =
+                            '<a href="/detailTransactionKembalikan/' . $detail_transaction->id . '">Edit</a>';
+
+                        return $html;
+                    }
+                )
+                ->make(true);
+        }
+
         return view('detailTransaction.detailTransactionKembalikan', compact('detail_transactions'));
     }
 

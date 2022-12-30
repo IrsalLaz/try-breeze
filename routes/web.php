@@ -57,12 +57,13 @@ Route::get('transaksiView/{transaction}', [TransactionController::class, 'show']
 
 // Detail transaksi
 Route::get('detailTransactionKembalikan/{detailTransactionId}', [DetailTransactionController::class, 'detailTransactionKembalikan'])->middleware(['auth', 'verified'])->name('detailTransactionUpdate');
+
 Route::post('detailTransactionUpdate', [DetailTransactionController::class, 'update'])->middleware(['auth', 'verified'])->name('detailTransactionUpdate');
 
 // Ambil
 Route::get('getAllTransactions', [TransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('getAllCollections');
 
-Route::get('getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'getAllDetailTransactions'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
-// Route::get('getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
+// Route::get('/getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'getAllDetailTransactions'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
+Route::get('getAllDetailTransactions/{transactionId}', [DetailTransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('getAllDetailTransactions');
 
 require __DIR__ . '/auth.php';

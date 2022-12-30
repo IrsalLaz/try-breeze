@@ -55,12 +55,6 @@ class RegisteredUserController extends Controller
         return view('user.daftarPengguna');
     }
 
-    public function getUserAPI()
-    {
-        $users = User::all();
-        return response()->json($users, 200);
-    }
-
     public function create()
     {
         return view('auth.register');
@@ -135,5 +129,28 @@ class RegisteredUserController extends Controller
         ]);
         User::find($id)->update($validated);
         return redirect('/user');
+    }
+
+    // API 
+    public function login(Request $request)
+    {
+        if (!Auth::attempt($request->only('username', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid login     '
+            ], 401);
+        }
+        $user = User::where('username', $request['username'])->firstOrFail();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
+    public function getUserAPI()
+    {
+        $users = User::all();
+        return response()->json($users, 200);
     }
 }
